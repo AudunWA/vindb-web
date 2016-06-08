@@ -1,0 +1,1 @@
+set DEBUG=vindb-web:* & npm start

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+ .row
+    h4 Produkter
+    table.bordered.highlight
+     thead
+      tr
+       th(data-field='id') Varenummer
+       th(data-field='name') Varenavn
+       th(data-field='price') Pris
+       th(data-field='liter_price') Literspris
+       th(data-field='first_seen') Først sett
+       th(data-field='last_seen') Sist sett
+     tbody
+      each product in products
+       tr.clickable-row(data-href='/product/#{product.varenummer}')
+        td= product.varenummer
+        td= product.varenavn
+        td= product.pris + ',-'
+        td= product.literspris + ',-'
+        td= format.asString('dd.MM.yyyy', product.first_seen)
+        td= format.asString('dd.MM.yyyy', product.last_seen)

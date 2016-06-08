@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    // Import Google Icon Font
+    link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    // Import materialize.css
+    link(type='text/css', rel='stylesheet', href='/stylesheets/materialize.min.css', media='screen,projection')
+    link(type='text/css', rel='stylesheet', href='/stylesheets/vindb.css', media='screen,projection')
+    // Let browser know website is optimized for mobile
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(charset='UTF-8')
+  body
+    // Import jQuery before materialize.js
+    script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js')
+    script(type='text/javascript', src='/javascripts/materialize.min.js')
+    script(type='text/javascript', src='/javascripts/vindb.js')
+    // Dropdown Structure
+    ul#dropdown1.dropdown-content
+      each val in ['Alkohol/kr', 'Liter/kr', 'Pris']
+        li 
+           a(href='#!')= val
+    .navbar-fixed
+      nav
+        .nav-wrapper
+          //a.brand-logo.right(href='#!') Logo
+          ul.left.hide-on-med-and-down
+            li
+              a(href='/') Hjem
+               i.material-icons.left home
+            li
+              a(href='/products') Varer
+               i.material-icons.left local_drink
+            li
+              a(href='/history') Endringer
+               i.material-icons.left update
+            // Dropdown Trigger
+            li
+              a.dropdown-button(href='#!', data-activates='dropdown1') Topplister
+                i.material-icons.right arrow_drop_down
+                i.material-icons.left sort
+   .container
+    block content
+    
