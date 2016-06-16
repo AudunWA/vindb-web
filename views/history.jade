@@ -1,0 +1,23 @@
+extends layout
+
+block content
+ .row
+    h4 Historie
+    table.bordered.striped
+     thead
+      tr
+       th(data-field='id') Varenummer
+       th(data-field='name') Varenavn
+       th(data-field='changed_field') Felt
+       th(data-field='old_value') Gammel verdi
+       th(data-field='new_value') Ny verdi
+       th(data-field='time') Tid endret
+     tbody
+      each change in changes
+       tr.clickable-row(data-href='/product/#{change.product_id}')
+        td= change.product_id
+        td= change.varenavn
+        td= change.display_name
+        td= change.old_value
+        td= change.new_value
+        td= format.asString('dd.MM.yyyy', change.time)
