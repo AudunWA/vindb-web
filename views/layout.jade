@@ -16,28 +16,30 @@ html
     script(type='text/javascript', src='/javascripts/vindb.js')
     // Dropdown Structure
     ul#dropdown1.dropdown-content
-      each val in ['Alkohol/kr', 'Liter/kr', 'Pris']
+      each val in [{ label: 'Billigste Alkohol/kr', href: '/products?order_by=epk&desc=1'}, { label: 'Dyreste Alkohol/kr', href: '/products?order_by=epk'}]
         li 
-           a(href='#!')= val
-    .navbar-fixed
-      nav
+           a(href='#{val.href}')= val.label
+    div
+     div
+       nav
         .nav-wrapper
-          //a.brand-logo.right(href='#!') Logo
-          ul.left.hide-on-med-and-down
-            li
-              a(href='/') Hjem
-               i.material-icons.left home
-            li
-              a(href='/products') Varer
-               i.material-icons.left local_drink
-            li
-              a(href='/history') Endringer
-               i.material-icons.left update
-            // Dropdown Trigger
-            li
-              a.dropdown-button(href='#!', data-activates='dropdown1') Topplister
-                i.material-icons.right arrow_drop_down
-                i.material-icons.left sort
+            //a.brand-logo.right(href='#!') Logo
+            ul.left
+              li
+                a(href='/') Hjem
+                  i.material-icons.left home
+              li
+                a(href='/products') Varer
+                  i.material-icons.left local_drink
+              li
+                a(href='/history') Endringer
+                  i.material-icons.left update
+              // Dropdown Trigger
+              li
+                a.dropdown-button(href='#!', data-activates='dropdown1') Topplister
+                  i.material-icons.right arrow_drop_down
+                  i.material-icons.left sort
+     block nav        
    .container
     block content
     

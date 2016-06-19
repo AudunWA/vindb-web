@@ -4,16 +4,16 @@ var format = require('date-format');
 var squel = require("squel");
 
 router.get('/', function (req, res, next) {
-  var query = "SELECT *, pris/volum literspris FROM product";
+  var query = "SELECT *, pris/volum literspris,((alkohol/100*volum)/pris*1000000) epk FROM product";
   if (req.query.query) {
-    query = "SELECT *, pris/volum literspris FROM product WHERE varenavn LIKE ?";
+    query =   "SELECT *, pris/volum literspris,((alkohol/100*volum)/pris*1000000) epk FROM product WHERE varenavn LIKE ?";
   }
 
   console.log(squel.select().from("product").where("varenummer = ?","0'; DELETE FROM products;-- ").toString());
 
   // Custom order
   if (req.query.order_by) {
-    var allowedValues = ['literspris', 'varenummer', 'first_seen', 'last_seen', 'varenavn', 'volum', 'pris', 'varetype', 'produktutvalg', 'butikkategori', 'alkohol', 'land'];
+    var allowedValues = ['epk', 'literspris', 'varenummer', 'first_seen', 'last_seen', 'varenavn', 'volum', 'pris', 'varetype', 'produktutvalg', 'butikkategori', 'alkohol', 'land'];
     if (allowedValues.indexOf(req.query.order_by) != -1) {
       query += " ORDER BY " + req.query.order_by;
 

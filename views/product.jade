@@ -1,5 +1,13 @@
 ﻿extends layout
 
+block nav
+ div
+   nav
+    .nav-wrapper
+     .col.s12
+     a.breadcrumb(href='/products') Produkter
+     a.breadcrumb(href='#!')= product.varenavn
+
 block content
       .row
         .col.s8
