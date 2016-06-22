@@ -34,16 +34,16 @@ block content
     li.waves-effect
       a(href='#!')
       i.material-icons chevron_right
-  table.bordered.highlight
+  table.ui-responsive.bordered.highlight(data-role='table', data-mode='columntoggle')
    thead
     tr
-      th(data-field='id') Varenummer
-      th(data-field='name') Varenavn
-      th(data-field='price') Pris
-      th(data-field='liter_price') Literspris
-      th(data-field='ethanol_per_krone') EPK
-      th(data-field='first_seen') Først sett
-      th(data-field='last_seen') Sist sett
+      th(data-field='id', data-priority='4') Varenummer
+      th(data-field='name', data-priority='7') Varenavn
+      th(data-field='price', data-priority='2') Pris
+      th(data-field='liter_price', data-priority='3') Literspris
+      th(data-field='ethanol_per_krone', data-priority='1') EPK
+      th(data-field='first_seen', data-priority='5') Først sett
+      th(data-field='last_seen', data-priority='6') Sist sett
    tbody
     each product in products
       tr.clickable-row(data-href='/product/#{product.varenummer}')

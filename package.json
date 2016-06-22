@@ -15,6 +15,7 @@
     "serve-favicon": "~2.3.0",
     "mysql": "~2.11.1",
     "date-format": "~0.0.2",
-    "squel": "~5.3.2"
+    "squel": "~5.3.2",
+    "bower": "~1.7.9"
   }
 }

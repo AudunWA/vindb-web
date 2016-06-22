@@ -3,23 +3,31 @@ html
   head
     // Import Google Icon Font
     link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-    // Import materialize.css
-    link(type='text/css', rel='stylesheet', href='/stylesheets/materialize.min.css', media='screen,projection')
-    link(type='text/css', rel='stylesheet', href='/stylesheets/vindb.css', media='screen,projection')
+
+    link(type='text/css', rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css', media='screen,projection')
+    link(type='text/css', rel='stylesheet', href='http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css', media='screen,projection')
+    link(type='text/css', rel='stylesheet', href='/bower_components/Waves/dist/waves.min.css', media='screen,projection')
+    link(type='text/css', rel='stylesheet', href='/bower_components/animate.css/animate.min.css', media='screen,projection')
+    link(type='text/css', rel='stylesheet', href='/bower_components/nativeDroid2/css/nativedroid2.css', media='screen,projection')
+
     // Let browser know website is optimized for mobile
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(charset='UTF-8')
   body
-    // Import jQuery before materialize.js
+   div(data-role='page')
     script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js')
-    script(type='text/javascript', src='/javascripts/materialize.min.js')
+    script(type='text/javascript', src='http://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js')
+    script(type='text/javascript', src='/bower_components/Waves/dist/waves.min.js')
+    //script(type='text/javascript', src='/bower_components/wowjs/dist/wow.min.js')
+    script(type='text/javascript', src='/bower_components/nativeDroid2/js/nativedroid2.js')
     script(type='text/javascript', src='/javascripts/vindb.js')
     // Dropdown Structure
     ul#dropdown1.dropdown-content
       each val in [{ label: 'Billigste Alkohol/kr', href: '/products?order_by=epk&desc=1'}, { label: 'Dyreste Alkohol/kr', href: '/products?order_by=epk'}]
         li 
            a(href='#{val.href}')= val.label
-    div
+    div(data-role='header', data-position='fixed')
      div
        nav
         .nav-wrapper
