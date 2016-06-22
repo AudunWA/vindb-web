@@ -1,0 +1,15 @@
+{
+  "name": "vindb-web",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nativeDroid2": "latest",
+    "animate.css": "latest"
+  }
+}
