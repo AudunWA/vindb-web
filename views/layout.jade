@@ -24,7 +24,7 @@ html
        nav
         .nav-wrapper
             //a.brand-logo.right(href='#!') Logo
-            ul.left
+            ul.left.hide-on-med-and-down
               li
                 a(href='/') Hjem
                   i.material-icons.left home
@@ -39,7 +39,26 @@ html
                 a.dropdown-button(href='#!', data-activates='dropdown1') Topplister
                   i.material-icons.right arrow_drop_down
                   i.material-icons.left sort
-     block nav        
-   .container
-    block content
+            a.button-collapse(href='#', data-activates='side-menu')
+             i.material-icons menu
+                 
+            ul#side-menu.side-nav
+             li.bold
+              a.waves-effect(href='/') Hjem
+             li.bold
+              a.waves-effect(href='/products') Varer
+             li.bold
+              a.waves-effect(href='/history') Endringer
+             li.bold.no-padding
+              ul.collapsible.collapsible-accordion
+               li
+                a.waves-effect.collapsible-header Topplister
+                .collapsible-body
+                 ul
+                  each val in [{ label: 'Billigste Alkohol/kr', href: '/products?order_by=epk&desc=1'}, { label: 'Dyreste Alkohol/kr', href: '/products?order_by=epk'}]
+                   li 
+                    a(href='#{val.href}')= val.label
+     block nav       
+    .container
+     block content
     

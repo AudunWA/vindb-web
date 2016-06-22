@@ -11,4 +11,7 @@ jQuery(document).ready(function ($) {
         var txt = $('#searchQuery');
         txt.val('%' + txt.val() + '%');
     });
+    
+    // Activate the side menu 
+   $(".button-collapse").sideNav();
 });

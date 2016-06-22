@@ -1,12 +1,5 @@
 extends layout
 
-block nav
- div
-   nav
-    .nav-wrapper
-     .col.s12
-     a.breadcrumb(href='#!') Produkter
-
 block content
   ul.pagination
     li.disabled
@@ -58,6 +51,6 @@ block content
        td= product.varenavn
        td= product.pris + ',-'
        td= product.literspris + ',-'
-       td= product.epk + ' mikroliter'
+       td= product.epk.toFixed(2) + ' mikroliter'
        td= format.asString('dd.MM.yyyy', product.first_seen)
        td= format.asString('dd.MM.yyyy', product.last_seen)
