@@ -48,14 +48,18 @@ html
             ul#side-menu.side-nav
              li.bold
               a.waves-effect(href='/') Hjem
+               i.material-icons.left home
              li.bold
               a.waves-effect(href='/products') Varer
+               i.material-icons.left local_drink
              li.bold
               a.waves-effect(href='/history') Endringer
+               i.material-icons.left update
              li.bold.no-padding
               ul.collapsible.collapsible-accordion
                li
                 a.waves-effect.collapsible-header Topplister
+                 i.material-icons.left sort
                 .collapsible-body
                  ul
                   each val in [{ label: 'Billigste Alkohol/kr', href: '/products?order_by=epk&desc=1'}, { label: 'Dyreste Alkohol/kr', href: '/products?order_by=epk'}]

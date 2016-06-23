@@ -2,10 +2,10 @@ extends layout
 
 block content
  div.center-align
-  h1 Produktdatabase
+  h1 VinDB
   br
   form#searchForm(action='/products')
-   input#searchQuery(name='query', placeholder='Skriv her...', style='width:50%' type='search')
+   input#searchQuery(name='query', placeholder='Søk på vare...', style='width:50%' type='search')
    br
    button.btn.waves-effect.waves-light.btn-large(type='submit') Søk!
     i.material-icons.left search

@@ -7,50 +7,42 @@ block content
       i.material-icons chevron_left
     li.active
       a(href='#!') 1
-    li.waves-effect
-      a(href='#!') 2
-    li.waves-effect
-      a(href='#!') 3
-    li.waves-effect
-      a(href='#!') 4
-    li.waves-effect
-      a(href='#!') 5
-    li.waves-effect
-      a(href='#!') 6
-    li.waves-effect
-      a(href='#!') 7
-    li.waves-effect
-      a(href='#!') 8
-    li.waves-effect
-      a(href='#!') 9
-    li.waves-effect
-      a(href='#!') 10
-    li.waves-effect
-      a(href='#!') 11
-    li.waves-effect
-      a(href='#!') 12
-    li.waves-effect
-      a(href='#!') 13
+    if(pageCount < 10)
+      - for (var i = 2; i <= pageCount; i++) {
+        li.waves-effect
+          a(href='#!')= i
+      - }
+    else
+      - for (var i = 2; i <= 3; i++) {
+        li.waves-effect
+          a(href='#!')= i
+      - }
+      li.waves-effect
+       | ...
+      - for (var i = pageCount - 2; i <= pageCount; i++) {
+        li.waves-effect
+          a(href='#!')= i
+      - }
     li.waves-effect
       a(href='#!')
       i.material-icons chevron_right
-  table.bordered.highlight
+  table.ui-responsive.bordered.highlight(data-role='table', data-mode='columntoggle')
    thead
     tr
-      th(data-field='id') Varenummer
-      th(data-field='name') Varenavn
-      th(data-field='price') Pris
-      th(data-field='liter_price') Literspris
-      th(data-field='ethanol_per_krone') EPK
-      th(data-field='first_seen') Først sett
-      th(data-field='last_seen') Sist sett
+      th(data-field='id', data-priority='4') Varenummer
+      th(data-field='name', data-priority='7') Varenavn
+      th(data-field='price', data-priority='2') Pris
+      th(data-field='liter_price', data-priority='3') Literspris
+      th(data-field='ethanol_per_krone', data-priority='1') EPK
+      th(data-field='first_seen', data-priority='5') Først sett
+      th(data-field='last_seen', data-priority='6') Sist sett
    tbody
     each product in products
       tr.clickable-row(data-href='/product/#{product.varenummer}')
        td= product.varenummer
        td= product.varenavn
        td= product.pris + ',-'
-       td= product.literspris + ',-'
+       td= product.literspris.toFixed(2) + ',-'
        td= product.epk.toFixed(2) + ' mikroliter'
        td= format.asString('dd.MM.yyyy', product.first_seen)
        td= format.asString('dd.MM.yyyy', product.last_seen)

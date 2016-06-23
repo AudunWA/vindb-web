@@ -4,34 +4,31 @@ var format = require('date-format');
 var squel = require("squel");
 
 router.get('/', function (req, res, next) {
-  var query = "SELECT pc.product_id, p.varenavn, field.display_name, pc.old_value, pc.new_value, cl.time FROM product_change pc INNER JOIN field USING(field_id) INNER JOIN change_log cl USING(change_id) INNER JOIN product p ON (p.varenummer = pc.product_id) ORDER BY time DESC";
-  if (req.query.query) {
-    query = "SELECT *, pris/volum literspris FROM product WHERE varenavn LIKE ?";
-  }
+  var query = "SELECT pc.product_id, p.varenavn, field.display_name, pc.old_value, pc.new_value, cl.time FROM product_change pc INNER JOIN field USING(field_id) INNER JOIN change_log cl USING(change_id) INNER JOIN product p ON (p.varenummer = pc.product_id)";
+  var parameters = [];
 
-  // Custom order
-  if (req.query.order_by) {
-    var allowedValues = ['literspris', 'varenummer', 'first_seen', 'last_seen', 'varenavn', 'volum', 'pris', 'varetype', 'produktutvalg', 'butikkategori', 'alkohol', 'land'];
-    if (allowedValues.indexOf(req.query.order_by) != -1) {
-      query += " ORDER BY " + req.query.order_by;
-
-      // Order descending
-      if (req.query.desc) {
-        query += " DESC";
-      }
+  // Date range
+  if (req.query.start_date) {
+    if (req.query.end_date) {
+      query += " WHERE DATE(cl.time) BETWEEN ? AND ? ORDER BY time DESC";
+      parameters.push(req.query.start_date);
+      parameters.push(req.query.end_date);
     }
   }
-
-  query += " LIMIT 1000";
+  else {
+    query += " ORDER BY time DESC LIMIT 200";
+  }
 
   // Get history from db
   pool.getConnection(function (err, connection) {
     if (err) throw err;
-    connection.query(query, req.query.query, function (err, rows, fields) {
+    connection.query(query, parameters, function (err, rows, fields) {
       connection.release();
 
-      res.render('history', { title: '123', changes: rows, format: format });
+      //getPageCount(connection, function(pageCount) {
+      res.render('history', { title: '123', /*pages: pageCount,*/ changes: rows, format: format });
 
+      //});
     });
   });
 });

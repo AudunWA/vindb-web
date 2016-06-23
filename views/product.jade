@@ -10,28 +10,25 @@ block nav
 
 block content
       .row
-        .col.s8
+        .col.m8.s12
           .card-panel.indigo
             span.white-text
               h4= product.varenavn
               .row
                 .col.s4
                     .card-panel.white
-                     //img(src='/images/bottle.png')
-                     img(src='https://bilder.vinmonopolet.no/cache/1200x1200-0/' + product.varenummer + '-1.jpg', style='max-width:100%;max-height:100%')
-                .col.s4
+                     img(src='/images/bottle.png', style='max-width:100%;max-height:100%')
+                     //img(src='https://bilder.vinmonopolet.no/cache/1200x1200-0/' + product.varenummer + '-1.jpg', style='max-width:100%;max-height:100%')
+                .col.s8
                   //each val in properties ? properties : [{name: 'Error', value: 'No value'}]
                   //   b= val.name + ': '
                   //   = val.value
                   //   br
-                  b ID: 
+                  b Varenummer: 
                   = product.varenummer
                   br
-                  b Først sett: 
-                  = format.asString('dd.MM.yyyy hh:mm', product.first_seen)
-                  br
-                  b Sist sett: 
-                  = format.asString('dd.MM.yyyy hh:mm', product.last_seen)
+                  b Alkoholprosent: 
+                  = product.alkohol + "%"
                   br
                   b Volum: 
                   = product.volum + " liter"
@@ -44,6 +41,12 @@ block content
                   br
                   b Etanol per krone (EPK): 
                   = ((product.alkohol/100*product.volum)/product.pris*1000000) + " mikroliter"
+                  br
+                  b Først sett: 
+                  = format.asString('dd.MM.yyyy hh:mm', product.first_seen)
+                  br
+                  b Sist sett: 
+                  = format.asString('dd.MM.yyyy hh:mm', product.last_seen)
                   br
                   br
                   //vinmonopolet button
@@ -73,7 +76,7 @@ block content
                   b Smak: 
                   =  product.smak
                   br
-        .col.s4
+        .col.m4.s12
           .card-panel.blue-grey
             span.white-text
               h4 Produsent
@@ -95,7 +98,7 @@ block content
               b Underdistrikt: 
               = product.underdistrikt
               br
-        .col.s4
+        .col.m4.s12
           .card-panel.blue-grey
             span.white-text
               h4 Emballasje
@@ -105,7 +108,7 @@ block content
               b Korktype: 
               = product.korktype
               br
-        .col.s4
+        .col.m4.s12
           .card-panel.blue-grey
             span.white-text
               h4 Butikk
@@ -118,25 +121,28 @@ block content
               b Butikkategori: 
               = product.butikkategori
               br
-        .col.s8
+        .col.m8.s12
           .card-panel.blue
             span.white-text
               h4 Historikk
-              table.bordered
-                thead
-                 tr
-                  th(data-field='field') Felt
-                  th(data-field='old') Gammel verdi
-                  th(data-field='new') Ny verdi
-                  th(data-field='time') Tidspunkt
-                tbody
-                 each change in changes
+              if(changes.length > 0)
+                table.bordered
+                  thead
                   tr
-                   td= change.name
-                   td= change.old_value
-                   td= change.new_value
-                   td= format.asString('dd.MM.yyyy hh:mm', change.time)
-        .col.s4
+                    th(data-field='field') Felt
+                    th(data-field='old') Gammel verdi
+                    th(data-field='new') Ny verdi
+                    th(data-field='time') Tidspunkt
+                  tbody
+                  each change in changes
+                    tr
+                    td= change.name
+                    td= change.old_value
+                    td= change.new_value
+                    td= format.asString('dd.MM.yyyy hh:mm', change.time)
+              else
+               | Ingen endringer registrert...      
+        .col.m4.s12
           .card-panel.blue
             span.white-text
               h4 Tilleggsinformasjon
@@ -157,9 +163,6 @@ block content
               br
               b Metode: 
               = product.metode
-              br
-              b Alkoholprosent: 
-              = product.alkohol + "%"
               br
               b Sukker: 
               = product.sukker + " gram per liter"
