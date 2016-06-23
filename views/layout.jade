@@ -13,6 +13,7 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(charset='UTF-8')
 
+
     //- For crawlers
     title= title
     link(type='image/x-icon', rel='shortcut icon', href='/favicon.ico')
@@ -20,6 +21,15 @@ html
     meta(name='application-name', content='VinDB')
     meta(name='description', content='En database som holder styr på produkter og produktendringer på Vinmonopolet.')
     meta(name='keywords', content='vin,øl,database,pol,alkohol,vinmonopolet')
+
+    //- Admob
+    script(async src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+    script
+     |  (adsbygoogle = window.adsbygoogle || []).push({
+     |    google_ad_client: "ca-pub-0853102332738508",
+     |    enable_page_level_ads: true
+     |  });
+
   body
     // Import jQuery before materialize.js
     script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js')
