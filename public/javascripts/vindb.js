@@ -41,7 +41,10 @@ jQuery(document).ready(function ($) {
     $('#update_date_button').click(function () {
         var startDate = $('#start_date').parent().find("[type='hidden']").attr('value');
         var endDate = $('#end_date').parent().find("[type='hidden']").attr('value');
-        window.location = "?start_date=" + startDate + "&end_date=" + endDate;
+
+        if(startDate && endDate) {
+            window.location = "?start_date=" + startDate + "&end_date=" + endDate;
+        }
     });
 
     // Set dates in input boxes

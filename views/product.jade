@@ -17,13 +17,11 @@ block content
               .row
                 .col.s4
                     .card-panel.white
-                     img(src='/images/bottle.png', style='max-width:100%;max-height:100%')
-                     //img(src='https://bilder.vinmonopolet.no/cache/1200x1200-0/' + product.varenummer + '-1.jpg', style='max-width:100%;max-height:100%')
+                     if (debug)
+                      img(src='https://bilder.vinmonopolet.no/cache/1200x1200-0/' + product.varenummer + '-1.jpg', style='max-width:100%;max-height:100%')
+                     else
+                      img(src='/images/bottle.png', style='max-width:100%;max-height:100%')
                 .col.s8
-                  //each val in properties ? properties : [{name: 'Error', value: 'No value'}]
-                  //   b= val.name + ': '
-                  //   = val.value
-                  //   br
                   b Varenummer: 
                   = product.varenummer
                   br

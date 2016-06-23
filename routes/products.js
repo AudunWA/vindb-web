@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err;
     getPageCount(connection, query, req.query.query, function (pageCount) {
-      query += " LIMIT 200";
+      query += " LIMIT " + ENTRIES_PER_PAGE;
       connection.query(query, req.query.query, function (err, rows, productFields) {
         connection.release();
         res.render('products', { title: '123', pageCount: pageCount, products: rows, format: format });

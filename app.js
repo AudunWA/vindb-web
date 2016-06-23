@@ -1,3 +1,9 @@
+// Load environment variables from .env
+require('dotenv').config();
+
+// Global debug flag
+debug = typeof v8debug === 'object';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -17,10 +23,10 @@ var app = express();
 // set mysql config
 pool = mysql.createPool({
     connectionLimit: 15,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'pol'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE
 });
 
 // view engine setup
