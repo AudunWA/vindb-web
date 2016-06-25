@@ -1,22 +1,50 @@
 var express = require('express');
 var router = express.Router();
 var format = require('date-format');
+var async = require('async');
 
 router.get('/:product_id', function (req, res, next) {
+  var productId = req.params.product_id;
   // Get product from db
-  pool.getConnection(function (err, connection) {
-    if (err) throw err;
-    connection.query("SELECT * FROM product WHERE varenummer = ?", req.params.product_id, function (err, productRows, productFields) {
-      if (err) throw err;
-      connection.query("SELECT field.display_name name, pc.old_value, pc.new_value, cl.time FROM product_change pc INNER JOIN field USING(field_id) INNER JOIN change_log cl USING(change_id) WHERE product_id = ? ORDER BY time DESC", req.params.product_id, function (err, historyRows, historyFields) {
-        if (err) throw err;
-        connection.release();
-
-        res.render('product', { title: '123', product: productRows[0], changes: historyRows, format: format});
-
-      });
+  async.waterfall([
+    getProduct.bind(null, productId),
+    getChanges,
+    renderPage.bind(null, res)
+  ],
+    function (error) {
+      if (error) {
+        return next(error);
+      }
     });
-  });
 });
+
+function getConnection(callback) {
+  pool.getConnection(callback);
+}
+
+function getProduct(productId, callback) {
+  pool.query("SELECT * FROM product WHERE varenummer = ?", productId, function (err, rows, fields) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, rows[0]);
+    }
+  });
+}
+
+function getChanges(product, callback) {
+  pool.query("SELECT field.display_name name, pc.old_value, pc.new_value, cl.time FROM product_change pc INNER JOIN field USING(field_id) INNER JOIN change_log cl USING(change_id) WHERE product_id = ? ORDER BY time DESC", product.varenummer, function (err, rows, fields) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, product, rows);
+    }
+  });
+}
+
+function renderPage(res, product, changes, callback) {
+  res.render('product', { product: product, changes: changes, format: format });
+  callback(null);
+}
 
 module.exports = router;
