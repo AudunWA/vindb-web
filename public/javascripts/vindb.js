@@ -28,10 +28,10 @@ jQuery(document).ready(function ($) {
 
     // Override form submit to edit query
     //http://stackoverflow.com/questions/4517366/change-form-values-after-submit-button-pressed
-    $('#searchForm').submit(function (e) {
-        var txt = $('#searchQuery');
-        txt.val('%' + txt.val() + '%');
-    });
+    //$('#searchForm').submit(function (e) {
+    //    var txt = $('#searchQuery');
+    //    txt.val('%' + txt.val() + '%');
+    //});
 
     // Activate the side menu 
     $(".button-collapse").sideNav();

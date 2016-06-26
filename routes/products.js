@@ -4,22 +4,28 @@ var format = require('date-format');
 var squel = require("squel");
 
 const ALLOWED_ORDER_VALUES = ['epk', 'literspris', 'varenummer', 'first_seen', 'last_seen', 'varenavn', 'volum', 'pris', 'varetype', 'produktutvalg', 'butikkategori', 'alkohol', 'land'];
+const ALLOWED_QUERY_FIELDS = ['literspris', 'varenummer', 'first_seen', 'last_seen', 'varenavn', 'volum', 'pris', 'varetype', 'produktutvalg', 'butikkategori', 'alkohol', 'land'];
 const ENTRIES_PER_PAGE = 100;
 
 router.get('/', function (req, res, next) {
-  var query = "SELECT *, pris/volum literspris,((alkohol/100*volum)/pris*1000000) epk FROM product";
-  if (req.query.query) {
-    query = "SELECT *, pris/volum literspris,((alkohol/100*volum)/pris*1000000) epk FROM product WHERE varenavn LIKE ?";
-  }
-
   var squelQuery = squel.select({ autoQuoteAliasNames: false })
     .field("*")
     .field("pris/volum", "literspris")
     .field("((alkohol/100*volum)/pris*1000000)", "epk")
     .from("product");
 
+  // Search parameter
+  if (req.query.query) {
+    var queryField = "varenavn";
+    if(req.query.query_type && ALLOWED_QUERY_FIELDS.indexOf(req.query.query_type) != -1) {
+      queryField = req.query.query_type;
+    }
+
+    squelQuery.where(queryField + " LIKE ?", "%" + req.query.query+ "%");
+  }
+
   // Custom order
-  if (req.query.order_by) {
+  if (req.query.order_by && ALLOWED_ORDER_VALUES.indexOf(req.query.order_by) != -1) {
     squelQuery.order(req.query.order_by, !req.query.desc);
   }
 
@@ -28,15 +34,14 @@ router.get('/', function (req, res, next) {
     squelQuery.where("alkohol > 0");
   }
 
-  console.log(squelQuery.toString());
-
   // Get products from db
   pool.getConnection(function (err, connection) {
     if (err) {
       return next(err);
     }
 
-    getPageCount(connection, squelQuery.toString(), req.query.query, function (err, pageCount) {
+    var query = squelQuery.toParam();
+    getPageCount(connection, query.text, query.values, function (err, pageCount) {
       if (err) {
         return next(err);
       }
@@ -53,8 +58,8 @@ router.get('/', function (req, res, next) {
       // Set limit to the items of the current page
       setLimit(squelQuery, page - 1);
 
-      console.log(squelQuery.toString());
-      connection.query(squelQuery.toString(), req.query.query, function (err, rows, productFields) {
+      query = squelQuery.toParam();
+      connection.query(query.text, query.values, function (err, rows, productFields) {
         connection.release();
         res.render('products', { currentPage: page, pageCount: pageCount, products: rows, format: format });
       });
