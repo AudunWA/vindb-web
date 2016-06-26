@@ -23,7 +23,7 @@ jQuery(document).ready(function ($) {
     var orderByValue = $.query.get('order_by');
     if (orderByValue) {
         var icon = $.query.get('desc') ? 'arrow_drop_up' : 'arrow_drop_down';
-        $("th.clickable[data-field='" + orderByValue + "']").append("<i class='material-icons right'>"+ icon + "</i>");
+        $("th.clickable[data-field='" + orderByValue + "']").append("<i class='material-icons right'>" + icon + "</i>");
     }
 
     // Override form submit to edit query
@@ -88,19 +88,27 @@ jQuery(document).ready(function ($) {
     });
 
     $('.page-first').click(function (event) {
-        window.location.search = $.query.set('page', 1);
+        if (!$(this).parent().hasClass('disabled')) {
+            window.location.search = $.query.set('page', 1);
+        }
     });
 
     $('.page-previous').click(function (event) {
-        window.location.search = $.query.set('page', parseInt($('.active').children().first().text()) - 1);
+        if (!$(this).parent().hasClass('disabled')) {
+            window.location.search = $.query.set('page', parseInt($('.active').children().first().text()) - 1);
+        }
     });
 
     $('.page-next').click(function (event) {
-        window.location.search = $.query.set('page', parseInt($('.active').children().first().text()) + 1);
+        if (!$(this).parent().hasClass('disabled')) {
+            window.location.search = $.query.set('page', parseInt($('.active').children().first().text()) + 1);
+        }
     });
 
     $('.page-last').click(function (event) {
-        window.location.search = $.query.set('page', 'last');
+        if (!$(this).parent().hasClass('disabled')) {
+            window.location.search = $.query.set('page', 'last');
+        }
     });
 });
 
