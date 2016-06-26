@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
       connection.release();
 
       //getPageCount(connection, function(pageCount) {
-      res.render('history', { title: '123', /*pages: pageCount,*/ changes: rows, format: format });
+      res.render('history', { title: 'Produktendringer', /*pages: pageCount,*/ changes: rows, format: format });
 
       //});
     });

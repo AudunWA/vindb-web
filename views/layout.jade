@@ -8,9 +8,17 @@ html
     link(type='text/css', rel='stylesheet', href='/stylesheets/jquery.mobile.custom.structure.css', media='screen,projection')
     link(type='text/css', rel='stylesheet', href='/stylesheets/vindb.css', media='screen,projection')
    
-    // Let browser know website is optimized for mobile
+    //- Let browser know website is optimized for mobile
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(charset='UTF-8')
+
+    //- For crawlers
+    title= title
+    link(type='image/x-icon', rel='shortcut icon', href='/favicon.ico')
+    link(type='image/x-icon', rel='icon', href='/favicon.ico')
+    meta(name='application-name', content='VinDB')
+    meta(name='description', content='En database som holder styr på produkter og produktendringer på Vinmonopolet.')
+    meta(name='keywords', content='vin,øl,database,pol,alkohol,vinmonopolet')
   body
     // Import jQuery before materialize.js
     script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js')

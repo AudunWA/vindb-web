@@ -61,7 +61,7 @@ router.get('/', function (req, res, next) {
       query = squelQuery.toParam();
       connection.query(query.text, query.values, function (err, rows, productFields) {
         connection.release();
-        res.render('products', { currentPage: page, pageCount: pageCount, products: rows, format: format });
+        res.render('products', { title: 'Produkter', currentPage: page, pageCount: pageCount, products: rows, format: format });
       });
     });
   });

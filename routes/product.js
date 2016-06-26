@@ -47,7 +47,7 @@ function getChanges(product, callback) {
 }
 
 function renderPage(res, product, changes, callback) {
-  res.render('product', { product: product, changes: changes, format: format });
+  res.render('product', { title: product.varenavn, product: product, changes: changes, format: format });
   callback(null);
 }
 
