@@ -5,6 +5,27 @@ jQuery(document).ready(function ($) {
         window.document.location = $(this).data("href");
     });
 
+    // Clickable table header
+    $('th.clickable').click(function () {
+        var newValue = $(this).data('field');
+        if ($.query.get('order_by') == newValue) {
+            if ($.query.get('desc')) {
+                window.location.search = $.query.remove('desc');
+            } else {
+                window.location.search = $.query.set('desc', 1);
+            }
+        } else {
+            window.location.search = $.query.set('order_by', newValue).remove('desc');
+        }
+    });
+
+    // Add sort arrow to table header
+    var orderByValue = $.query.get('order_by');
+    if (orderByValue) {
+        var icon = $.query.get('desc') ? 'arrow_drop_up' : 'arrow_drop_down';
+        $("th.clickable[data-field='" + orderByValue + "']").append("<i class='material-icons right'>"+ icon + "</i>");
+    }
+
     // Override form submit to edit query
     //http://stackoverflow.com/questions/4517366/change-form-values-after-submit-button-pressed
     $('#searchForm').submit(function (e) {
@@ -33,7 +54,7 @@ jQuery(document).ready(function ($) {
         hiddenName: true,
 
         // Fix for closeOnSelect not working
-        onSet: function(context) {
+        onSet: function (context) {
             this.close();
         }
     });
@@ -42,7 +63,7 @@ jQuery(document).ready(function ($) {
         var startDate = $('#start_date').parent().find("[type='hidden']").attr('value');
         var endDate = $('#end_date').parent().find("[type='hidden']").attr('value');
 
-        if(startDate && endDate) {
+        if (startDate && endDate) {
             window.location = "?start_date=" + startDate + "&end_date=" + endDate;
         }
     });
@@ -53,13 +74,34 @@ jQuery(document).ready(function ($) {
 
     var startDate = $.urlParam('start_date');
     var endDate = $.urlParam('end_date');
-    if(startDate) {
+    if (startDate) {
         startPicker.set('select', startDate, { format: 'yyyy-mm-dd' });
     }
 
-    if(endDate) {
+    if (endDate) {
         endPicker.set('select', endDate, { format: 'yyyy-mm-dd' });
     }
+
+    // Page buttons
+    $('.page-button').click(function (event) {
+        window.location.search = $.query.set('page', $(event.target).text());
+    });
+
+    $('.page-first').click(function (event) {
+        window.location.search = $.query.set('page', 1);
+    });
+
+    $('.page-previous').click(function (event) {
+        window.location.search = $.query.set('page', parseInt($('.active').children().first().text()) - 1);
+    });
+
+    $('.page-next').click(function (event) {
+        window.location.search = $.query.set('page', parseInt($('.active').children().first().text()) + 1);
+    });
+
+    $('.page-last').click(function (event) {
+        window.location.search = $.query.set('page', 'last');
+    });
 });
 
 // http://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js

@@ -2,40 +2,39 @@ extends layout
 
 block content
   ul.pagination
-    li.disabled
-      a(href='#!')
-      i.material-icons chevron_left
-    li.active
-      a(href='#!') 1
-    if(pageCount < 10)
-      - for (var i = 2; i <= pageCount; i++) {
-        li.waves-effect
-          a(href='#!')= i
-      - }
-    else
-      - for (var i = 2; i <= 3; i++) {
-        li.waves-effect
-          a(href='#!')= i
-      - }
-      li.waves-effect
-       | ...
-      - for (var i = pageCount - 2; i <= pageCount; i++) {
-        li.waves-effect
-          a(href='#!')= i
-      - }
-    li.waves-effect
-      a(href='#!')
+    - var leftChevronClass = currentPage == 1 ? 'disabled' : 'waves-effect';
+    li(class=leftChevronClass)
+      a.page-first(href='#!')
+       i.material-icons first_page
+    li(class=leftChevronClass)
+      a.page-previous(href='#!')
+       i.material-icons chevron_left
+    - var start = currentPage === 1 ? 1 : currentPage - 1;
+    - var end = currentPage === 1 ? 3 : currentPage + 1;
+    - if(currentPage == pageCount) start = currentPage - 2;
+    - if(end > pageCount) end = pageCount;
+    - for (var i = start; i <= end; i++) {
+     - var classVal = i === currentPage ? 'active' : 'waves-effect';
+     li(class=classVal)
+      a.page-button(href='#!')= i
+    - }
+    - var rightChevronClass = currentPage == pageCount ? 'disabled' : 'waves-effect';
+    li(class=rightChevronClass)
+     a.page-next(href='#!')
       i.material-icons chevron_right
+    li(class=rightChevronClass)
+     a.page-last(href='#!')
+      i.material-icons last_page
   table.ui-responsive.bordered.highlight(data-role='table', data-mode='columntoggle')
    thead
     tr
-      th(data-field='id', data-priority='4') Varenummer
-      th(data-field='name', data-priority='7') Varenavn
-      th(data-field='price', data-priority='2') Pris
-      th(data-field='liter_price', data-priority='3') Literspris
-      th(data-field='ethanol_per_krone', data-priority='1') EPK
-      th(data-field='first_seen', data-priority='5') Først sett
-      th(data-field='last_seen', data-priority='6') Sist sett
+      th.clickable(data-field='varenummer', data-priority='4') Varenummer
+      th.clickable(data-field='varenavn', data-priority='7') Varenavn
+      th.clickable(data-field='pris', data-priority='2') Pris
+      th.clickable(data-field='literspris', data-priority='3') Literspris
+      th.clickable(data-field='epk', data-priority='1') EPK
+      th.clickable(data-field='first_seen', data-priority='5') Først sett
+      th.clickable(data-field='last_seen', data-priority='6') Sist sett
    tbody
     each product in products
       tr.clickable-row(data-href='/product/#{product.varenummer}')
