@@ -1,11 +1,6 @@
 // Global debug flag
 debug = typeof v8debug === 'object';
 
-//if (debug) {
-// Load environment variables from .env
-//  require('dotenv').config();
-//}
-
 var http = require('http');
 var express = require('express');
 var path = require('path');
@@ -22,6 +17,11 @@ var products = require('./routes/products');
 var history = require('./routes/history');
 
 var app = express();
+
+if (app.get('env') === 'development') {
+  // Load environment variables from .env
+  require('dotenv').config();
+}
 
 // set mysql config
 pool = mysql.createPool({
@@ -87,8 +87,10 @@ app.use(function (err, req, res, next) {
 
 
 // Start listen
-http.createServer(app).listen(app.get('port'), function () {
-  console.log("Express server listening on port " + app.get('port'));
-});
+if (app.get('env') != 'development') {
+  http.createServer(app).listen(app.get('port'), function () {
+    console.log("Express server listening on port " + app.get('port'));
+  });
+}
 
 module.exports = app;
