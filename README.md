@@ -2,6 +2,7 @@
 A Node.js-based website for viewing and comparing products from Vinmonopolet's database.
 
 ## Frameworks/technologies used
+- AWS Elastic Beanstalk for easy deployment to AWS (Amazon Web Services)
 - Express as HTTP server
 - Pug/Jade as HTML template engine
 - A mix of pure JavaScript and jQuery in the frontend
@@ -19,3 +20,6 @@ A Node.js-based website for viewing and comparing products from Vinmonopolet's d
 
 ## Running
 - Run `set DEBUG=vindb-web:* & npm start`
+
+NOTE: The databse included on the repository is empty, which means there will be no products or changes unless you import them yourself.
+The raw data I used to generate the data, can be found here: https://www.vinmonopolet.no/datadeling
