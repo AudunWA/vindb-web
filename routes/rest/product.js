@@ -25,7 +25,7 @@ function getProduct(productId, callback) {
   pool.query("SELECT * FROM product WHERE varenummer = ?", productId, function(err, rows, fields) {
     if (err) {
       callback(err);
-    } else if (rows.length == 0) {
+    } else if (rows.length === 0) {
       var err = new Error('Not Found');
       err.status = 404;
       callback(err);
@@ -46,12 +46,7 @@ function getChanges(product, callback) {
 }
 
 function renderPage(res, product, changes, callback) {
-  res.render('product', {
-    title: product.varenavn,
-    product: product,
-    changes: changes,
-    format: format
-  });
+  res.send({product: product, changes: changes});
   callback(null);
 }
 

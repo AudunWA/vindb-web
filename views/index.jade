@@ -3,6 +3,10 @@ extends layout
 block content
  div.center-align
   h1 VinDB
+  h5 
+   | VinDB gir deg oversikt over alle varene Vinmonopolet tilbyr, og hvilke endringer som blir gjort på disse hver dag.
+   br
+   | Du kan dermed få med deg alt fra prisendringer til rettinger av skrivefeil!
   br
   form#searchForm(action='/products')
    input#searchQuery(name='query', placeholder='Søk på vare...', style='width:50%' type='search')

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/materialize.css" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/jquery.mobile.custom.structure.css" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/vindb.css" media="screen,projection">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Produkter</title>
+    <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico">
+    <link type="image/x-icon" rel="icon" href="/favicon.ico">
+    <meta name="application-name" content="VinDB">
+    <meta name="description" content="En database som holder styr på produkter og produktendringer på Vinmonopolet.">
+    <meta name="keywords" content="vin,øl,database,pol,alkohol,vinmonopolet">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-0853102332738508",
+            enable_page_level_ads: true
+        });
+    </script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-46149585-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body>
+    <!-- Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.mobile.custom.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.query-object.js"></script>
+    <script type="text/javascript" src="/javascripts/materialize.js"></script>
+    <script type="text/javascript" src="/javascripts/Chart.bundle.js"></script>
+    <script type="text/javascript" src="/javascripts/vindb.js"></script>
+    <!-- Dropdown Structure-->
+    <ul id="dropdown1" class="dropdown-content">
+        <li> <a href="/products?order_by=first_seen&amp;desc=1">Nyeste varer</a></li>
+        <li> <a href="/products?order_by=epk&amp;desc=1">Billigste Alkohol/kr</a></li>
+        <li> <a href="/products?order_by=epk&amp;above_zero=1">Dyreste Alkohol/kr</a></li>
+        <li> <a href="/products?query_type=varetype&amp;query=vodka&amp;order_by=epk&amp;desc=1">Billigste vodka</a></li>
+        <li> <a href="/products?query_type=varetype&amp;query=vin&amp;order_by=epk&amp;desc=1">Billigste vin</a></li>
+        <li> <a href="/products?query_type=varetype&amp;query=øl&amp;order_by=epk&amp;desc=1">Billigste øl</a></li>
+        <li> <a href="/history?field_type=4">Prisendringer</a></li>
+    </ul>
+    <div>
+        <div>
+            <nav>
+                <div class="nav-wrapper">
+                    <!--a.brand-logo.right(href='#!') Logo-->
+                    <ul class="left hide-on-med-and-down">
+                        <li><a href="/">Hjem<i class="material-icons left">home</i></a></li>
+                        <li><a href="/products">Varer<i class="material-icons left">local_drink</i></a></li>
+                        <li><a href="/history">Endringer<i class="material-icons left">update</i></a></li>
+                        <!-- Dropdown Trigger-->
+                        <li><a href="#!" data-activates="dropdown1" class="dropdown-button">Topplister<i class="material-icons right">arrow_drop_down</i><i class="material-icons left">sort</i></a></li>
+                    </ul><a href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul id="side-menu" class="side-nav">
+                        <li class="bold"><a href="/" class="waves-effect">Hjem<i class="material-icons left">home</i></a></li>
+                        <li class="bold"><a href="/products" class="waves-effect">Varer<i class="material-icons left">local_drink</i></a></li>
+                        <li class="bold"><a href="/history" class="waves-effect">Endringer<i class="material-icons left">update</i></a></li>
+                        <li class="bold no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                <li><a class="waves-effect collapsible-header">Topplister<i class="material-icons left">sort</i></a>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li> <a href="/products?order_by=first_seen&amp;desc=1">Nyeste varer</a></li>
+                                            <li> <a href="/products?order_by=epk&amp;desc=1">Billigste Alkohol/kr</a></li>
+                                            <li> <a href="/products?order_by=epk&amp;above_zero=1">Dyreste Alkohol/kr</a></li>
+                                            <li> <a href="/products?query_type=varetype&amp;query=vodka&amp;order_by=epk&amp;desc=1">Billigste vodka</a></li>
+                                            <li> <a href="/products?query_type=varetype&amp;query=vin&amp;order_by=epk&amp;desc=1">Billigste vin</a></li>
+                                            <li> <a href="/products?query_type=varetype&amp;query=øl&amp;order_by=epk&amp;desc=1">Billigste øl</a></li>
+                                            <li> <a href="/history?field_type=4">Prisendringer</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="pagination">
+            <li class="disabled"><a href="#!" class="page-first"><i class="material-icons">first_page</i></a></li>
+            <li class="disabled"><a href="#!" class="page-previous"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="#!" class="page-button">1</a></li>
+            <li class="waves-effect"><a href="#!" class="page-button">2</a></li>
+            <li class="waves-effect"><a href="#!" class="page-button">3</a></li>
+            <li class="waves-effect"><a href="#!" class="page-next"><i class="material-icons">chevron_right</i></a></li>
+            <li class="waves-effect"><a href="#!" class="page-last"><i class="material-icons">last_page</i></a></li>
+        </ul>
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive bordered highlight">
+            <thead>
+                <tr>
+                    <th data-field="varenummer" data-priority="4" class="clickable">Varenummer</th>
+                    <th data-field="varenavn" data-priority="7" class="clickable">Varenavn</th>
+                    <th data-field="pris" data-priority="2" class="clickable">Pris</th>
+                    <th data-field="literspris" data-priority="3" class="clickable">Literspris</th>
+                    <th data-field="epk" data-priority="1" class="clickable">EPK</th>
+                    <th data-field="first_seen" data-priority="5" class="clickable">Først sett</th>
+                    <th data-field="last_seen" data-priority="6" class="clickable">Sist sett</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-href="/product/1101" class="clickable-row">
+                    <td>1101</td>
+                    <td>Løiten Linie</td>
+                    <td>404.9,-</td>
+                    <td>578.43,-</td>
+                    <td>717.46 mikroliter</td>
+                    <td>19.03.2016</td>
+                    <td>02.09.2016</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
